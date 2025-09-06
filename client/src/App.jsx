@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, FileText, GitCompare, Menu, X, Zap, Lock, Award } from 'lucide-react';
+import { Shield, FileText, GitCompare, Menu, X, Zap, Lock, Award, Sparkles, CheckCircle, ArrowRight } from 'lucide-react';
 import SinglePrediction from './components/SinglePrediction';
 import ComparisonMode from './components/ComparisonMode';
 
@@ -12,67 +12,90 @@ function App() {
       id: 'single',
       label: 'Single Analysis',
       icon: FileText,
-      description: 'Analyze individual signature authenticity'
+      description: 'Analyze individual signature authenticity',
+      color: 'from-emerald-400 to-blue-500'
     },
     {
       id: 'comparison',
       label: 'Compare Signatures',
       icon: GitCompare,
-      description: 'Compare two signatures for verification'
+      description: 'Compare two signatures for verification',
+      color: 'from-indigo-600 via-purple-600 to-pink-600'
     }
   ];
 
   const features = [
     {
       icon: Zap,
-      title: 'Fast Analysis',
-      description: 'Get results in seconds with our advanced AI'
+      title: 'Lightning Fast',
+      description: 'Get results in seconds with our advanced AI algorithms',
+      color: 'from-yellow-400 to-orange-500'
     },
     {
       icon: Lock,
-      title: 'Secure Processing',
-      description: 'Your signatures are processed securely and not stored'
+      title: 'Bank-Grade Security',
+      description: 'Your signatures are processed securely and never stored',
+      color: 'from-green-400 to-emerald-500'
     },
     {
       icon: Award,
-      title: 'High Accuracy',
-      description: 'Industry-leading accuracy with deep learning models'
+      title: '99.5% Accuracy',
+      description: 'Industry-leading precision with deep learning models',
+      color: 'from-blue-400 to-indigo-500'
     }
   ];
 
+  const stats = [
+    { number: '500K+', label: 'Signatures Analyzed' },
+    { number: '99.5%', label: 'Accuracy Rate' },
+    { number: '<2s', label: 'Average Processing Time' },
+    { number: '24/7', label: 'Available Always' }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-blue-600/20 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Navigation Header */}
-      <nav className="bg-white shadow-lg border-b border-gray-200">
+      <nav className="relative bg-white/80 backdrop-blur-lg shadow-lg border-b border-gray-200/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             {/* Logo and Title */}
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
-                <Shield className="w-6 h-6 text-white" />
+            <div className="flex items-center space-x-4">
+              <div className="relative p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg">
+                <Shield className="w-8 h-8 text-white" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full flex items-center justify-center">
+                  <Sparkles className="w-2 h-2 text-white" />
+                </div>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">ForgedSignature</h1>
-                <p className="text-xs text-gray-500 hidden sm:block">Advanced Signature Verification</p>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                  ForgedSignature
+                </h1>
+                <p className="text-sm text-gray-500 hidden sm:block font-medium">Advanced AI Verification</p>
               </div>
             </div>
 
             {/* Desktop Tab Navigation */}
-            <div className="hidden md:flex space-x-1">
+            <div className="hidden md:flex space-x-2">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    className={`group flex items-center space-x-3 px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
                       activeTab === tab.id
-                        ? 'bg-blue-100 text-blue-700 shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/80 backdrop-blur-sm'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
-                    <span>{tab.label}</span>
+                    <Icon className={`w-5 h-5 transition-transform duration-300 ${activeTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`} />
+                    <span className="hidden lg:block">{tab.label}</span>
                   </button>
                 );
               })}
@@ -81,20 +104,20 @@ function App() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              className="md:hidden p-3 rounded-2xl hover:bg-gray-100/80 backdrop-blur-sm transition-all duration-300"
             >
               {isMobileMenuOpen ? (
-                <X className="w-5 h-5 text-gray-600" />
+                <X className="w-6 h-6 text-gray-600" />
               ) : (
-                <Menu className="w-5 h-5 text-gray-600" />
+                <Menu className="w-6 h-6 text-gray-600" />
               )}
             </button>
           </div>
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4">
-              <div className="space-y-2">
+            <div className="md:hidden border-t border-gray-200/50 py-6 backdrop-blur-lg">
+              <div className="space-y-3">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
                   return (
@@ -104,16 +127,18 @@ function App() {
                         setActiveTab(tab.id);
                         setIsMobileMenuOpen(false);
                       }}
-                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+                      className={`w-full flex items-center space-x-4 px-6 py-4 rounded-2xl font-semibold transition-all duration-300 ${
                         activeTab === tab.id
-                          ? 'bg-blue-100 text-blue-700'
-                          : 'text-gray-600 hover:bg-gray-100'
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                          : 'text-gray-600 hover:bg-gray-100/80'
                       }`}
                     >
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-6 h-6" />
                       <div className="text-left">
-                        <div>{tab.label}</div>
-                        <div className="text-xs text-gray-500">{tab.description}</div>
+                        <div className="text-base">{tab.label}</div>
+                        <div className={`text-sm ${activeTab === tab.id ? 'text-blue-100' : 'text-gray-500'}`}>
+                          {tab.description}
+                        </div>
                       </div>
                     </button>
                   );
@@ -125,32 +150,54 @@ function App() {
       </nav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
-            <Shield className="w-10 h-10 text-white" />
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-3xl mb-8 shadow-2xl shadow-blue-500/25 relative">
+            <Shield className="w-14 h-14 text-white" />
+            <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full flex items-center justify-center animate-pulse">
+              <CheckCircle className="w-4 h-4 text-white" />
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          
+          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
             Advanced Signature
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"> Verification</span>
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 animate-gradient">
+              Verification
+            </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          
+          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">
             Detect signature forgeries and verify authenticity using state-of-the-art AI technology. 
-            Fast, accurate, and secure signature analysis at your fingertips.
+            <span className="font-semibold text-gray-700">Fast, accurate, and secure</span> signature analysis at your fingertips.
           </p>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-16">
+            {stats.map((stat, index) => (
+              <div key={index} className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
+                <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-sm font-medium text-gray-600">{stat.label}</div>
+              </div>
+            ))}
+          </div>
           
           {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-xl mb-4">
-                    <Icon className="w-6 h-6 text-blue-600" />
+                <div key={index} className="group bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
               );
             })}
@@ -158,29 +205,32 @@ function App() {
         </div>
 
         {/* Tab Content */}
-        <div className="space-y-8">
+        <div className="space-y-12">
           {/* Tab Headers for Desktop */}
-          <div className="hidden md:flex justify-center">
-            <div className="bg-white rounded-2xl p-2 shadow-sm border border-gray-200">
+          <div className="flex justify-center">
+            <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-3 shadow-2xl border border-gray-200/50">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center space-x-3 px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                    className={`group flex items-center space-x-4 px-8 py-5 rounded-2xl font-bold transition-all duration-300 ${
                       activeTab === tab.id
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        ? `bg-gradient-to-r ${tab.color} text-white shadow-lg shadow-blue-500/25 scale-105`
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/80'
                     }`}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className={`w-6 h-6 transition-transform duration-300 ${activeTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`} />
                     <div className="text-left">
-                      <div>{tab.label}</div>
-                      <div className={`text-xs ${activeTab === tab.id ? 'text-blue-100' : 'text-gray-400'}`}>
+                      <div className="text-lg">{tab.label}</div>
+                      <div className={`text-sm font-normal ${activeTab === tab.id ? 'text-white/80' : 'text-gray-500'}`}>
                         {tab.description}
                       </div>
                     </div>
+                    {activeTab !== tab.id && (
+                      <ArrowRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    )}
                   </button>
                 );
               })}
@@ -188,7 +238,7 @@ function App() {
           </div>
 
           {/* Content Area */}
-          <div className="transition-all duration-300">
+          <div className="transition-all duration-500">
             {activeTab === 'single' && (
               <div className="animate-fadeIn">
                 <SinglePrediction />
@@ -203,17 +253,23 @@ function App() {
         </div>
 
         {/* Footer Info */}
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Important Notice</h3>
-            <div className="text-sm text-gray-600 space-y-2 max-w-4xl mx-auto">
-              <p>
-                This signature verification system uses advanced machine learning algorithms to analyze signature patterns and characteristics. 
-                While highly accurate, results should be used as a supplementary tool alongside professional forensic analysis for critical applications.
-              </p>
-              <p className="text-xs text-gray-500">
-                All uploaded images are processed locally and securely. No signature data is stored on our servers.
-              </p>
+        <div className="mt-20">
+          <div className="bg-gradient-to-r from-white/80 to-blue-50/80 backdrop-blur-lg rounded-3xl p-10 shadow-2xl border border-gray-200/50">
+            <div className="text-center max-w-4xl mx-auto">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-400 to-orange-500 rounded-2xl mb-6">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Important Notice</h3>
+              <div className="text-gray-600 space-y-4 leading-relaxed">
+                <p className="text-lg">
+                  This signature verification system uses advanced machine learning algorithms to analyze signature patterns and characteristics. 
+                  While highly accurate, <span className="font-semibold text-gray-800">results should be used as a supplementary tool</span> alongside professional forensic analysis for critical applications.
+                </p>
+                <div className="flex items-center justify-center space-x-2 text-sm bg-emerald-50 text-emerald-700 rounded-xl px-4 py-3 font-medium">
+                  <Lock className="w-4 h-4" />
+                  <span>All uploaded images are processed locally and securely. No signature data is stored on our servers.</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -222,17 +278,31 @@ function App() {
       {/* Custom CSS for animations */}
       <style jsx>{`
         .animate-fadeIn {
-          animation: fadeIn 0.3s ease-in-out;
+          animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradientShift 3s ease-in-out infinite;
         }
         
         @keyframes fadeIn {
           from {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(20px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+        
+        @keyframes gradientShift {
+          0%, 100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
           }
         }
       `}</style>

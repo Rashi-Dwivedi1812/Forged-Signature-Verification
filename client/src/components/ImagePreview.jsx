@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, Download, RotateCw, ZoomIn, ZoomOut } from 'lucide-react';
+import { Eye, Download, RotateCw, ZoomIn, ZoomOut, Maximize2, Info } from 'lucide-react';
 
 function ImagePreview({ file }) {
   const [imageUrl, setImageUrl] = useState(null);
@@ -115,35 +115,55 @@ function ImagePreview({ file }) {
       <div className="relative group">
         <div className="bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-sm">
           <div 
-            className="flex items-center justify-center p-4 bg-gray-50 min-h-[200px] max-h-[400px] overflow-auto"
+            className="flex items-center justify-center p-4 bg-gray-50 min-h-[200px] max-h-[400px] overflow-auto relative"
             style={{ backgroundColor: '#f8f9fa' }}
           >
-            <img
-              src={imageUrl}
-              alt="Signature Preview"
-              onClick={() => setIsFullscreen(true)}
-              className="cursor-zoom-in transition-transform duration-200 hover:opacity-95"
-              style={{
-                transform: `rotate(${rotation}deg) scale(${zoom})`,
-                maxWidth: zoom > 1 ? 'none' : '100%',
-                maxHeight: zoom > 1 ? 'none' : '100%',
-                objectFit: 'contain'
-              }}
-            />
+            <div className="relative">
+              <img
+                src={imageUrl}
+                alt="Signature Preview"
+                onClick={() => setIsFullscreen(true)}
+                className="cursor-zoom-in transition-all duration-300 hover:scale-105 hover:shadow-2xl rounded-lg"
+                style={{
+                  transform: `rotate(${rotation}deg) scale(${zoom})`,
+                  maxWidth: zoom > 1 ? 'none' : '100%',
+                  maxHeight: zoom > 1 ? 'none' : '100%',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1))'
+                }}
+              />
+              
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/0 hover:bg-black/5 transition-all duration-300 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 cursor-zoom-in">
+                <div className="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg transform scale-0 hover:scale-100 transition-transform duration-200">
+                  <Maximize2 className="w-6 h-6 text-gray-700" />
+                </div>
+              </div>
+            </div>
           </div>
           
-          {/* Image Info Bar */}
-          <div className="px-4 py-3 bg-gray-50 border-t border-gray-200">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center space-x-4 text-gray-600">
-                <span className="font-medium text-gray-800 truncate max-w-[200px]">
-                  {file.name}
-                </span>
-                <span>{formatFileSize(file.size)}</span>
-                <span className="capitalize">{file.type.split('/')[1]}</span>
-              </div>
-              <div className="text-gray-500">
-                Click image to enlarge
+          {/* Enhanced Image Info Bar */}
+          <div className="px-4 py-4 bg-gradient-to-r from-white/95 via-gray-50/95 to-white/95 backdrop-blur-sm border-t border-gray-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl">
+                    <Info className="w-4 h-4 text-green-600" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="font-semibold text-gray-800 truncate max-w-[200px] text-sm">
+                      {file.name}
+                    </p>
+                    <div className="flex items-center space-x-3 text-xs text-gray-500">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full bg-blue-100 text-blue-700 font-medium">
+                        {formatFileSize(file.size)}
+                      </span>
+                      <span className="inline-flex items-center px-2 py-1 rounded-full bg-purple-100 text-purple-700 font-medium capitalize">
+                        {file.type.split('/')[1]}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
