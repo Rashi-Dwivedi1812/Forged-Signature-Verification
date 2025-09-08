@@ -22,18 +22,23 @@ function SinglePrediction() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://localhost:8000/api/predict-single', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-      setResult(data);
-    } catch (error) {
-      console.error('Error during prediction:', error);
-      alert('Failed to get prediction from the server.');
-    } finally {
-      setIsLoading(false);
-    }
+  const response = await fetch('http://localhost:8000/api/predict-single', {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Server error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  setResult(data);
+} catch (error) {
+  console.error('Error during prediction:', error);
+  alert('Failed to get prediction from the server.');
+} finally {
+  setIsLoading(false);
+}
   };
 
   const handleReset = () => {

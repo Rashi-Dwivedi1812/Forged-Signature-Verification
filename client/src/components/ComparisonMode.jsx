@@ -24,18 +24,23 @@ function ComparisonMode() {
     formData.append('file2', file2);
 
     try {
-      const response = await fetch('http://localhost:8000/api/compare-signatures', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-      setResult(data);
-    } catch (error) {
-      console.error('Error during comparison:', error);
-      alert('Failed to get comparison from the server.');
-    } finally {
-      setIsLoading(false);
-    }
+  const response = await fetch("http://localhost:8000/api/compare-signatures", {
+    method: "POST",
+    body: formData,
+  });
+  
+  if (!response.ok) {
+    throw new Error(`Server error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  setResult(data);
+} catch (error) {
+  console.error("Error during comparison:", error);
+  alert("Failed to get comparison from the server.");
+} finally {
+  setIsLoading(false);
+}
   };
 
   const handleReset = () => {
