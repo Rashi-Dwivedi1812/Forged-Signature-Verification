@@ -65,8 +65,8 @@ function SinglePrediction() {
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-white mb-1">AI Signature Analysis</h2>
-                <p className="text-blue-100 text-base">Advanced authenticity detection powered by machine learning</p>
+                <h2 className="text-3xl font-bold text-blue-900 mb-1">AI Signature Analysis</h2>
+                <p className="text-blue-800 text-base">Advanced authenticity detection powered by machine learning</p>
               </div>
             </div>
             
