@@ -24,7 +24,7 @@ function ComparisonMode() {
     formData.append('file2', file2);
 
     try {
-  const response = await fetch("http://localhost:8000/api/compare-signatures", {
+  const response = await fetch("/api/compare-signatures", {
     method: "POST",
     body: formData,
   });

@@ -22,7 +22,7 @@ function SinglePrediction() {
     formData.append('file', file);
 
     try {
-  const response = await fetch('http://localhost:8000/api/predict-single', {
+  const response = await fetch('/api/predict-single', {
     method: 'POST',
     body: formData,
   });

@@ -1,9 +1,10 @@
 fastapi
 uvicorn[standard]
 python-multipart
-tensorflow
-numpy
+tensorflow==2.2.0
+numpy==1.19.5
 pillow
+protobuf==3.19.4
 python-jose[cryptography]
 passlib[bcrypt]
 python-dotenv

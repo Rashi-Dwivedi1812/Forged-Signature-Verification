@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from tensorflow.keras.models import load_model  # <-- CORRECTED LINE
 import numpy as np
 from PIL import Image
 import io
@@ -32,10 +33,10 @@ async def load_models():
         # Build a path to the model file relative to this script's location.
         script_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.dirname(script_dir)
-        model_path = os.path.join(project_root, 'signature_version_model.h5')
+        model_path = os.path.join(project_root, 'temp_model.h5')
 
         if os.path.exists(model_path):
-            cnn_model = tf.keras.models.load_model(model_path, compile=False)
+            cnn_model = load_model(model_path, compile=False)
             print("CNN Model loaded successfully!")
         else:
             print(f"Warning: CNN model not found at {model_path}")
@@ -72,7 +73,7 @@ async def predict_single_signature(
     if model_type == "cnn" and cnn_model is None:
         raise HTTPException(status_code=503, detail="CNN model is not loaded. Check backend logs for errors.")
     if model_type != "cnn":
-         raise HTTPException(status_code=400, detail=f"Model type '{model_type}' is not supported for single prediction.")
+        raise HTTPException(status_code=400, detail=f"Model type '{model_type}' is not supported for single prediction.")
 
 
     try:
