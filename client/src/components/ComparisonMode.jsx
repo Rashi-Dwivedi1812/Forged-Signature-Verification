@@ -20,8 +20,8 @@ function ComparisonMode() {
     setResult(null);
 
     const formData = new FormData();
-    formData.append('file1', file1);
-    formData.append('file2', file2);
+    formData.append('files', file1);
+    formData.append('files', file2);
 
     try {
   const response = await fetch("/api/compare-signatures", {
