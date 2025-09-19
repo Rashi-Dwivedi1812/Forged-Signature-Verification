@@ -32,6 +32,9 @@ function SinglePrediction() {
   }
 
   const data = await response.json();
+
+  console.log('API Response:', data); 
+  
   setResult(data);
 } catch (error) {
   console.error('Error during prediction:', error);
