@@ -10,7 +10,7 @@ import uvicorn
 import os
 
 # --- Load Model ---
-model_path = 'Forged-Signature-Verification/temp_model.h5'
+model_path = 'temp_model (1).h5'
 try:
     # Load the full model for single predictions
     full_model = tf.keras.models.load_model(model_path)
