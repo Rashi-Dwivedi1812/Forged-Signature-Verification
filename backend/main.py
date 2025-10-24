@@ -33,7 +33,7 @@ app = FastAPI()
 # ✅ IMPORTANT: Update this list with your frontend URL
 # -------------------------------------------------------------------
 origins = [
-    "https://forged-signature-verification.vercel.app/",  # Your production frontend URL
+    "https://forged-signature-verification.vercel.app",  # Your production frontend URL
     "http://localhost:3000",                  # For local React development
     "http://localhost:5173",                  # For local Vite development
 ]
