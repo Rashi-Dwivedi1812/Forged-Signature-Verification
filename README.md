@@ -8,10 +8,10 @@ A full-stack web application built with React and a TensorFlow/FastAPI backend t
 ---
 
 ### **Live Demo: [forged-signature-verification.vercel.app](https://forged-signature-verification.vercel.app)**
-
 *(Note: The backend is hosted on Render's free tier, so the first request may take 30-60 seconds for the server to "wake up".)*
-
 ![Demo GIF](https://your-link-to-a-demo-gif.com/demo.gif)
+
+---
 
 ## About The Project
 
