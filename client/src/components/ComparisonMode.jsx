@@ -26,7 +26,7 @@ function ComparisonMode() {
     const API_URL = "https://forged-signature-verification.onrender.com";
 
     try {
-  const response = await fetch(`${API_URL}/api/predict-single`, {
+  const response = await fetch(`${API_URL}/api/compare-signatures`, {
     method: "POST",
     body: formData,
   });
