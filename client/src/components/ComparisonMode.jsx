@@ -23,8 +23,10 @@ function ComparisonMode() {
     formData.append('files', file1);
     formData.append('files', file2);
 
+    const API_URL = "https://forged-signature-verification.onrender.com";
+
     try {
-  const response = await fetch("/api/compare-signatures", {
+  const response = await fetch(`${API_URL}/api/predict-single`, {
     method: "POST",
     body: formData,
   });
