@@ -21,8 +21,10 @@ function SinglePrediction() {
     const formData = new FormData();
     formData.append('file', file);
 
+    const API_URL = "https://forged-signature-verification.onrender.com";
+    
     try {
-  const response = await fetch('http://localhost:8000/api/predict-single', {
+  const response = await fetch(`${API_URL}/api/predict-single`, {
     method: 'POST',
     body: formData,
   });
@@ -32,6 +34,9 @@ function SinglePrediction() {
   }
 
   const data = await response.json();
+
+  console.log('API Response:', data); 
+  
   setResult(data);
 } catch (error) {
   console.error('Error during prediction:', error);

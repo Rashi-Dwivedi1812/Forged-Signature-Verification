@@ -19,7 +19,7 @@ function ResultDisplay({ result }) {
   const getStatusInfo = (result) => {
     let isPositive = false;
     let statusText = '';
-    let statusIcon = null;
+    let statusIcon = AlertTriangle; 
     let statusColor = '';
     let bgColor = '';
     let borderColor = '';

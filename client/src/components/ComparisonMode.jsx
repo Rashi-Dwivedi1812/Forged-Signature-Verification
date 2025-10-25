@@ -20,11 +20,13 @@ function ComparisonMode() {
     setResult(null);
 
     const formData = new FormData();
-    formData.append('file1', file1);
-    formData.append('file2', file2);
+    formData.append('files', file1);
+    formData.append('files', file2);
+
+    const API_URL = "https://forged-signature-verification.onrender.com";
 
     try {
-  const response = await fetch("http://localhost:8000/api/compare-signatures", {
+  const response = await fetch(`${API_URL}/api/compare-signatures`, {
     method: "POST",
     body: formData,
   });
